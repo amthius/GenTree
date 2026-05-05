@@ -76,7 +76,7 @@ def update():
     except Exception as e:
         print(f"Error updating project file: {e}")
 
-class RojoWatcher(FileSystemEventHandler):
+class FileWatcher(FileSystemEventHandler):
     def on_created(self, event):
         if not event.is_directory: update()
 
@@ -90,7 +90,7 @@ if __name__ == "__main__":
     update()
 
     observer = Observer()
-    observer.schedule(RojoWatcher(), BASE_SRC, recursive=True)
+    observer.schedule(FileWatcher(), BASE_SRC, recursive=True)
     observer.start()
     
     print(f"Watching {BASE_SRC} for changes... (Ctrl+C to stop)")
